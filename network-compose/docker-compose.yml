@@ -1,0 +1,44 @@
+networks:
+  route9_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.9.0/24
+  route1_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.0/24
+
+services:
+  host4:
+    build:
+      context: ./host
+      dockerfile: dockerfile
+    command: tail -f /dev/null
+    privileged: true
+    networks:
+      eth9_network:
+        ipv4_address: 192.168.9.2
+
+  host6:
+    build:
+      context: ./host
+      dockerfile: dockerfile
+    command: tail -f /dev/null
+    privileged: true
+    networks:
+      eth1_network:
+        ipv4_address: 192.168.1.2
+
+  router1:
+    build:
+      context: ./host
+      dockerfile: dockerfile
+    command: tail -f /dev/null
+    privileged: true
+    networks:
+      route1_network:
+        ipv4_address: 192.168.1.254
+      route9_network:
+        ipv4_address: 192.168.9.254
