@@ -18,7 +18,7 @@ services:
     command: tail -f /dev/null
     privileged: true
     networks:
-      eth9_network:
+      route9_network:
         ipv4_address: 192.168.9.2
 
   host6:
@@ -28,7 +28,7 @@ services:
     command: tail -f /dev/null
     privileged: true
     networks:
-      eth1_network:
+      route1_network:
         ipv4_address: 192.168.1.2
 
   router1:
