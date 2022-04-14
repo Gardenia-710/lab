@@ -13,8 +13,8 @@ networks:
 services:
   host4:
     build:
-      context: ./host
-      dockerfile: dockerfile
+      context: .
+      dockerfile: ./host/dockerfile
     command: tail -f /dev/null
     privileged: true
     networks:
@@ -23,8 +23,8 @@ services:
 
   host6:
     build:
-      context: ./host
-      dockerfile: dockerfile
+      context: .
+      dockerfile: ./host/dockerfile
     command: tail -f /dev/null
     privileged: true
     networks:
@@ -33,8 +33,8 @@ services:
 
   router1:
     build:
-      context: ./host
-      dockerfile: dockerfile
+      context: .
+      dockerfile: ./host/dockerfile
     command: tail -f /dev/null
     privileged: true
     networks:

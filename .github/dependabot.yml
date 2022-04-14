@@ -1,6 +1,10 @@
 version: 2
 updates:
 - package-ecosystem: docker
-  directory: "/"
+  directory: "/host"
+  schedule:
+    interval: "daily"
+  - package-ecosystem: docker
+  directory: "/network-compose/host"
   schedule:
     interval: "daily"
