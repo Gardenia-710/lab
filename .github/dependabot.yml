@@ -4,7 +4,7 @@ updates:
   directory: "/host"
   schedule:
     interval: "daily"
-  - package-ecosystem: docker
+- package-ecosystem: docker
   directory: "/network-compose/host"
   schedule:
     interval: "daily"
