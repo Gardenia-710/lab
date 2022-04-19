@@ -18,4 +18,4 @@ host4に入る場合
 ```
 docker-compose exec host4 bash
 ```
-これで
+これでコンテナの中に入れるので、あとは通常のUbuntuと同じ。
