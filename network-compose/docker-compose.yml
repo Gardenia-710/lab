@@ -1,14 +1,49 @@
 networks:
-  route9_network:
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.9.0/24
   route1_network:
     ipam:
       driver: default
       config:
         - subnet: 192.168.1.0/24
+  # route2_network:
+  #   ipam:
+  #     driver: default
+  #     config:
+  #       - subnet: 192.168.2.0/24
+  # route3_network:
+  #   ipam:
+  #     driver: default
+  #     config:
+  #       - subnet: 192.168.3.0/24
+  # route4_network:
+  #   ipam:
+  #     driver: default
+  #     config:
+  #       - subnet: 192.168.4.0/24
+  # route5_network:
+  #   ipam:
+  #     driver: default
+  #     config:
+  #       - subnet: 192.168.5.0/24
+  # route6_network:
+  #   ipam:
+  #     driver: default
+  #     config:
+  #       - subnet: 192.168.6.0/24
+  # route7_network:
+  #   ipam:
+  #     driver: default
+  #     config:
+  #       - subnet: 192.168.7.0/24
+  route8_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.8.0/24
+  route9_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.9.0/24
 
 services:
   host4:
@@ -21,15 +56,25 @@ services:
       route9_network:
         ipv4_address: 192.168.9.2
 
-  host6:
+  host5:
     build:
       context: .
       dockerfile: ./host/dockerfile
     command: tail -f /dev/null
     privileged: true
     networks:
-      route1_network:
-        ipv4_address: 192.168.1.2
+      route8_network:
+        ipv4_address: 192.168.8.2
+
+  # host6:
+  #   build:
+  #     context: .
+  #     dockerfile: ./host/dockerfile
+  #   command: tail -f /dev/null
+  #   privileged: true
+  #   networks:
+  #     route1_network:
+  #       ipv4_address: 192.168.1.2
 
   router1:
     build:
@@ -42,3 +87,15 @@ services:
         ipv4_address: 192.168.1.254
       route9_network:
         ipv4_address: 192.168.9.254
+
+  router2:
+    build:
+      context: .
+      dockerfile: ./host/dockerfile
+    command: tail -f /dev/null
+    privileged: true
+    networks:
+      route1_network:
+        ipv4_address: 192.168.1.253
+      route8_network:
+        ipv4_address: 192.168.8.254
