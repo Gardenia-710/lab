@@ -1,6 +1,43 @@
+# FROM ubuntu:18.04
 FROM ubuntu:20.04
 
-RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install -y iputils-ping net-tools netcat traceroute ufw systemctl quagga
+RUN apt update -y && apt-get install -y\
+    iputils-ping \
+    net-tools \
+    netcat \
+    traceroute \
+    ufw \
+    systemctl \
+    quagga \
+    openssh-server \
+    # tcpdump \
+    # telnet
 
-COPY ./routing_table /etc
+# RUN apt update -y && apt-get install -y\
+#     iputils-ping \
+#     net-tools \
+#     netcat \
+#     traceroute \
+#     ufw \
+#     quagga \
+#     openssh-server
+
+# RUN apt install -y iputils-ping net-tools netcat traceroute ufw quagga
+# software-properties-common
+
+# sshサーバー関連の設定とポート開放
+RUN mkdir /var/run/sshd
+RUN echo 'root:root' | chpasswd
+RUN sed -i 's/#*PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
+
+
+# COPY ./routing_table/conf/sshd_config /etc/ssh/sshd_config
+
+# 念の為IPフォワーディングをONにするconfigファイルをコピーしておく
+COPY ./routing_table/sysctl.conf /etc/sysctl.conf
+# デーモンたちのコンフィグをコピーしておく
+COPY ./routing_table/conf/quagga /etc/quagga
+RUN chown quagga:quagga /etc/quagga
